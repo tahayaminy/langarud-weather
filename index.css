@@ -1,0 +1,39 @@
+body{
+    padding-top: 2em;
+    background-color: #FFFEEC;
+}
+.cont,.dama{
+    width: 280px;
+    margin: auto;
+    position: relative;
+}
+.contDeg{
+    width: 5px;
+    height: 102px;
+    background-color: #AEDDCD;
+    position: absolute;
+    left: 50%;bottom: 0;
+    z-index: -1;
+    transform: translate(-50%,-10px) rotateZ(270deg);
+    border-radius: 50% 50% 2px 2px;
+    transform-origin: bottom;
+    transition: 1s ease-out;
+}
+.dama>p{
+    text-align: center;
+}
+.dama>p>span{
+    color: #FFFEEC;
+    padding: .5em;
+    display: inline-block;
+    margin: 0 1em;
+    transform: translateY(-10%);
+    border-radius: 3px;
+}
+
+.dama>p>span:first-child{
+    background-color: #E4508F;
+}
+.dama>p>span:last-child{
+    background-color: #556FB5;
+}
