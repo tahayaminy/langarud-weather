@@ -1,6 +1,6 @@
 body{
     padding-top: 2em;
-    background-color: #FFFEEC;
+    background-color: #F9F8EB;
 }
 .cont,.dama{
     width: 280px;
@@ -10,7 +10,7 @@ body{
 .contDeg{
     width: 5px;
     height: 102px;
-    background-color: #AEDDCD;
+    background-color: #76B39D;
     position: absolute;
     left: 50%;bottom: 0;
     z-index: -1;
