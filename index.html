@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
     <section class="cont">
@@ -18,6 +19,39 @@
         <p>12°C</p>
         <p><span>10</span><span>20</span></p>
     </section>
+    <section class="svgCont">
+        <svg width="100%" height="280">
+            <circle id="holder" cx="140" cy="140" r="137" fill="none" /><!--holder-->
+            <circle id="gold" cx="140" cy="140" r="137" fill="none" /><!--gold-->
+            <circle id="gold-pluk" cx="140" cy="140" r="137" fill="none" /><!--holder for gold-->  
+            <circle id="dark" cx="140" cy="140" r="137" fill="none" /><!--dark-->
+            <circle id="dark-pluk" cx="140" cy="140" r="137" fill="none" /><!--holder for dark-->
+        </svg>
+        
+        <div class="cont-sun-moon">
+            <div id="sun-moon">
+                <i class="bi bi-sun-fill"></i>
+                <i style="display: none;" class="bi bi-moon-stars-fill"></i>
+            </div>
+        </div>
+        <section class="hr">
+            <span>HORIZON</span>
+        </section>
+        <section class="grid">
+            <div>
+                <i class="bi bi-sunrise"></i>
+                <small>Sunrise</small>
+                <b>07:41</b>
+            </div>
+                
+            <div>
+                <i class="bi bi-sunset"></i>
+                <small>Sunset</small>
+                <b>19:41</b>
+            </div>
+        </section>
+    </section>
+    <br><br><br>
 </body>
 <script src="./index.js"></script>
 </html>
