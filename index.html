@@ -10,34 +10,34 @@
 </head>
 <body>
     <section class="cont">
-        <section class="contImg">
+        <section>
             <img src="./speedmeterdrawing.svg" width="100%" alt="">
         </section>
-        <section class="contDeg"></section>
+        <section class="speedmeter__hand"></section>
     </section>
-    <section class="dama">
-        <p>12°C</p>
-        <p><span>10</span><span>20</span></p>
+    <section class="cont">
+        <p class="current-temp">12°C</p>
+        <p class="temp-levels"><span>10</span><span>20</span></p>
     </section>
-    <section class="svgCont">
-        <svg width="100%" height="280">
-            <circle id="holder" cx="140" cy="140" r="137" fill="none" /><!--holder-->
-            <circle id="gold" cx="140" cy="140" r="137" fill="none" /><!--gold-->
-            <circle id="gold-pluk" cx="140" cy="140" r="137" fill="none" /><!--holder for gold-->  
-            <circle id="dark" cx="140" cy="140" r="137" fill="none" /><!--dark-->
-            <circle id="dark-pluk" cx="140" cy="140" r="137" fill="none" /><!--holder for dark-->
+    <section class="cont svg-cont">
+        <svg>
+            <circle id="holder" fill="none" /><!--holder-->
+            <circle id="gold" fill="none" /><!--gold-->
+            <circle id="gold-pluk" fill="none" /><!--holder for gold-->  
+            <circle id="dark" fill="none" /><!--dark-->
+            <circle id="dark-pluk" fill="none" /><!--holder for dark-->
         </svg>
         
-        <div class="cont-sun-moon">
-            <div id="sun-moon">
+        <div class="cont-sun--moon">
+            <div>
                 <i class="bi bi-sun-fill"></i>
                 <i style="display: none;" class="bi bi-moon-stars-fill"></i>
             </div>
         </div>
-        <section class="hr">
+        <section class="svg__hr">
             <span>HORIZON</span>
         </section>
-        <section class="grid">
+        <section class="svg--grid">
             <div>
                 <i class="bi bi-sunrise"></i>
                 <small>Sunrise</small>

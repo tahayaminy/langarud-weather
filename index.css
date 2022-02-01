@@ -2,12 +2,12 @@ body{
     padding-top: 2em;
     background-color: #F9F8EB;
 }
-.cont,.dama,.svgCont{
+.cont{
     width: 280px;
     margin: auto;
     position: relative;
 }
-.contDeg{
+.speedmeter__hand{
     width: 5px;
     height: 102px;
     background-color: #76B39D;
@@ -19,10 +19,10 @@ body{
     transform-origin: bottom;
     transition: 1s ease-out;
 }
-.dama>p{
+.current-temp,.temp-levels{
     text-align: center;
 }
-.dama>p>span{
+.temp-levels>span{
     color: #FFFEEC;
     padding: .5em;
     display: inline-block;
@@ -31,31 +31,37 @@ body{
     border-radius: 3px;
 }
 
-.dama>p>span:first-child{
+.temp-levels>span:first-child{
     background-color: #E4508F;
 }
-.dama>p>span:last-child{
+.temp-levels>span:last-child{
     background-color: #556FB5;
 }
-
-.svgCont{
+/*****/
+.svg-cont{
     margin-top: 5em;
     margin-bottom: 2em;
     position: relative;
     height: 280px;
 }
-.svgCont>.grid>div{
+.svg-cont>svg{
+    width: 100%;
+    height: 280px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.svg-cont>.svg--grid>div{
     margin: auto;
     text-align: center;
 }
-.svgCont>.grid>div>small{
+.svg-cont>.svg--grid>div>small{
     font-size: 12px;
     margin-top: -5px;
     margin-bottom: 10px;
     display: block;
 }
-
-.hr{
+.svg__hr{
     position: absolute;
     top: 50%;
     width: 100%;
@@ -64,41 +70,37 @@ body{
     text-align: center;
     z-index: -1;
 }
-.hr>span{
+.svg__hr>span{
     transform: translateY(-50%);
     background-color: #fff;
     display: inline-block;
 }
-svg{
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-i,span,b{
+.svg--grid i,.svg--grid span,.svg--grid b{
     display: block;
 }
-.grid{
+.svg--grid{
     display: grid;
     grid-template-columns: auto;
     height: 100%;
 }
+/*****/
 
-circle{
+svg>circle{
     stroke-width: 5;
 }
 #holder,#gold-pluk,#dark-pluk{
     stroke-width: 6.5;
 }
-circle:first-child{
+svg>circle:first-child{
     stroke: #dee9db;
 }
-circle:nth-child(2){    
+svg>circle:nth-child(2){    
     stroke: #F0B917;
     stroke-dasharray: 430.5;
     stroke-dashoffset: 0;
-    animation: tstgold 5s linear;
+    animation: Agold 5s linear;
 }
-circle:nth-child(3){
+svg>circle:nth-child(3){
     stroke: #dee9db;
     stroke-dasharray: 430.5;
     stroke-dashoffset: 0;
@@ -108,31 +110,26 @@ circle:nth-child(4){
     stroke-dasharray: 431;
     stroke-dashoffset: 431;
     display: none;
-    animation: x 5s linear;
+    animation: Adark 5s linear;
 }
-circle:last-child{
+svg>circle:last-child{
     stroke: #dee9db;
     stroke-dasharray: 430.5;
     stroke-dashoffset: -430.5;
     display: none;
 }
-@keyframes tstgold {
-    from{
-        stroke-dashoffset: 0;
-    }
-    to{
-        stroke-dashoffset: -430.5;
-    }
+.cont-sun--moon{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    transform: rotate(270deg);
+    transform-origin: 50% 50%;
+    animation: sun--moon 10s linear;
 }
-@keyframes x {
-    from{
-        stroke-dashoffset: 431;
-    }
-    to{
-        stroke-dashoffset: 0;
-    }
-}
-#sun-moon{
+.cont-sun--moon>div{
     width: 25px;height: 25px;
     padding-top: 1px;
     border-radius: 50%;
@@ -151,22 +148,31 @@ circle:last-child{
 .bi-moon-stars-fill{
     color: #155263;
 }
-.cont-sun-moon{
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    transform: rotate(270deg);
-    transform-origin: 50% 50%;
-    animation: xx 10s linear;
+@keyframes Agold {
+    from{
+        stroke-dashoffset: 0;
+    }
+    to{
+        stroke-dashoffset: -430.5;
+    }
 }
-@keyframes xx {
+@keyframes Adark {
+    from{
+        stroke-dashoffset: 431;
+    }
+    to{
+        stroke-dashoffset: 0;
+    }
+}
+@keyframes sun--moon {
     from{
         transform: rotate(270deg);
     }
     to{
         transform: rotate(630deg);
     }
+}
+#holder,#gold,#gold-pluk,#dark,#dark-pluk{
+    r:137;
+    cx:140;cy:140;
 }
