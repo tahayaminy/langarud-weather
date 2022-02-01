@@ -46,7 +46,7 @@ body{
 }
 .svg-cont>svg{
     width: 100%;
-    height: 280px;
+    height: 100%;
     position: absolute;
     top: 0;
     right: 0;
@@ -57,8 +57,7 @@ body{
 }
 .svg-cont>.svg--grid>div>small{
     font-size: 12px;
-    margin-top: -5px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     display: block;
 }
 .svg__hr{
@@ -74,9 +73,29 @@ body{
     transform: translateY(-50%);
     background-color: #fff;
     display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid rgba(21, 82, 99,.1);
+    border-radius: 50px;
+    font-size: 10px;
 }
-.svg--grid i,.svg--grid span,.svg--grid b{
+.svg--grid i,.svg--grid small,.svg--grid b{
     display: block;
+}
+.svg--grid b{
+    color: rgba(0, 0, 0,.75);
+    font-size: 25px;
+}
+.svg--grid small{
+    color: rgba(0, 0, 0,.5);
+}
+.svg--grid i{
+    font-size: 20px;
+}
+.svg--grid .bi-sunrise{
+    color:#F0B917;
+}
+.svg--grid .bi-sunset{
+    color:#155263;
 }
 .svg--grid{
     display: grid;
@@ -84,7 +103,6 @@ body{
     height: 100%;
 }
 /*****/
-
 svg>circle{
     stroke-width: 5;
 }
@@ -117,6 +135,10 @@ svg>circle:last-child{
     stroke-dasharray: 430.5;
     stroke-dashoffset: -430.5;
     display: none;
+}
+#holder,#gold,#gold-pluk,#dark,#dark-pluk{
+    r:137;
+    cx:140;cy:140;
 }
 .cont-sun--moon{
     width: 100%;
@@ -172,7 +194,64 @@ svg>circle:last-child{
         transform: rotate(630deg);
     }
 }
-#holder,#gold,#gold-pluk,#dark,#dark-pluk{
-    r:137;
-    cx:140;cy:140;
+@media only screen and (max-width:500px){
+    .cont{
+        width: 200px;
+    }
+    .speedmeter__hand{
+        height: 70px;
+        transform: translateY(0px);
+    }
+    .svg-cont{
+        height: 200px;
+    }
+    #holder,#gold,#gold-pluk,#dark,#dark-pluk{
+        r:97;
+        cx:100;cy:100;
+    }
+    svg>circle:nth-child(2){
+        stroke-dasharray: 304.5;
+        stroke-dashoffset: 0;
+    }
+    svg>circle:nth-child(3){
+        stroke-dasharray: 304.5;
+        stroke-dashoffset: 0;
+    }
+    circle:nth-child(4){
+        stroke-dasharray: 304.5;
+        stroke-dashoffset: 304.5;
+    }
+    svg>circle:last-child{
+        stroke-dasharray: 304.5;
+        stroke-dashoffset: -304.5;
+    }
+    @keyframes Agold {
+        from{
+            stroke-dashoffset: 0;
+        }
+        to{
+            stroke-dashoffset: -304.5;
+        }
+    }
+    @keyframes Adark {
+        from{
+            stroke-dashoffset: 304.5;
+        }
+        to{
+            stroke-dashoffset: 0;
+        }
+    }
+    .svg__hr>span{
+        padding: 3px 7px;
+        font-size: 8px;
+    }
+    .svg--grid b{
+        font-size: 22px;
+    }
+    .svg--grid small{
+         font-size: 10px !important;
+    }
+    .svg--grid i{
+        font-size: 16px;
+    }
 }
