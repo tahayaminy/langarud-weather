@@ -1,13 +1,13 @@
 const $=el=>{return document.querySelector(el);}
 const mock={"upTemp":20,"downTemp":0,"currentTemp":11,"sunset":['19','41'],"sunrise":['07','41'],"sunriseT":['6','35'],"sunsetT":['19','40']};
-const current=[6,35];
+const current=[1,35];
 const MIN=time=>{return (time[0]*60)+Number(time[1])};
 var daybreak=[24,0]
 const DayBreak= current=>{daybreak[0]+=current[0];daybreak[1]=current[1];}
 var DayBreakFlag=false;
 
 // FOR TEMP
-$('.current-temp').innerText=`${mock.currentTemp} °C`;
+$('.current-temp').innerText=`${mock.currentTemp}°C`;
 $('#upTemp').innerText=mock.upTemp;
 $('#downTemp').innerText=mock.downTemp;
 $('.speedmeter__hand').style=`transform: translate(-50%,-10px) rotateZ(${(((mock.currentTemp+10)*180)/50) + 270}deg);`;
@@ -27,7 +27,7 @@ if(MIN(current)>=0 && MIN(current)<=MIN(mock.sunriseT)){
     DayBreakFlag=true;
 }
 
-if(MIN(current)>MIN(mock.sunset)){
+if(MIN(current)>MIN(mock.sunset) && DayBreakFlag==false){
     //OK
     console.log('Is Night!');
     //COMPLETE DAY
@@ -51,10 +51,6 @@ if(MIN(current)>MIN(mock.sunset)){
     $('#sunrise span:first-child').innerText=mock.sunriseT[0];
     $('#sunrise span:last-child').innerText=mock.sunriseT[1];
 }
-
-
-
-
 else if(DayBreakFlag){
     //OK
     console.log('Day Break!');
@@ -81,17 +77,6 @@ else if(DayBreakFlag){
     $('#sunrise span:first-child').innerText=mock.sunriseT[0];
     $('#sunrise span:last-child').innerText=mock.sunriseT[1];
 }
-
-
-
-
-
-
-
-
-
-
-
 else{
     //OK
     console.log('Is Day!'); 
