@@ -128,8 +128,8 @@ circle:nth-child(4){
     stroke: #155263;
     stroke-dasharray: 383;
     stroke-dashoffset: 383;
-    display: none;
-    animation: Adark 5s linear;
+    opacity: 0;
+    transition: stroke-dashoffset 2s linear;
 }
 svg>circle:last-child{
     stroke: #dee9db;
@@ -171,12 +171,4 @@ svg>circle:last-child{
 }
 .bi-moon-stars-fill{
     color: #155263;
-}
-@keyframes Adark {
-    from{
-        stroke-dashoffset: 383;
-    }
-    to{
-        stroke-dashoffset: 0;
-    }
 }
