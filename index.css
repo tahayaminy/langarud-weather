@@ -116,7 +116,7 @@ svg>circle:first-child{
 svg>circle:nth-child(2){    
     stroke: #F0B917;
     stroke-dasharray: 383;
-    stroke-dashoffset: -0;
+    stroke-dashoffset: 0;
     transition: 2s linear;
 }
 svg>circle:nth-child(3){

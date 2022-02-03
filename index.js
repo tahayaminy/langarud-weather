@@ -1,10 +1,10 @@
 const $=el=>{return document.querySelector(el);}
 const mock={"upTemp":20,"downTemp":0,"currentTemp":11,"sunset":['19','41'],"sunrise":['07','41'],"sunriseT":['6','35'],"sunsetT":['7','40']};
-const current=[1,41];
+const current=[23,59];
 const MIN=time=>{return (time[0]*60)+Number(time[1])};
 var daybreak=[24,0]
 const DayBreak= current=>{daybreak[0]+=current[0];daybreak[1]=current[1];}
-var DayBreakFlag=true;
+var DayBreakFlag=false;
 
 // FOR TEMP
 $('.current-temp').innerText=`${mock.currentTemp} °C`;
@@ -22,7 +22,7 @@ var gold;
 var sun;
 var dark;
 
-if(current[0]==0){
+if(MIN(current)>=0 && MIN(current)<=MIN(mock.sunriseT)){
     DayBreakFlag=true;
 }
 
@@ -51,11 +51,6 @@ if(MIN(current)>MIN(mock.sunset)){
 }else if(DayBreakFlag){
     console.log('Day Break!');
     DayBreak(current);
-
-    // dark=((MIN(daybreak)-MIN(mock.sunset))*383)/(12*60);
-    // $('.cont-sun--moon').style.transform=`rotate(${sun+450}deg)`; 
-    // $('#dark').style.strokeDashoffset=`${383-dark}`;
-
     $('#gold').style.strokeDashoffset='-383';
 
     sun=((MIN(daybreak)-MIN(mock.sunset))*360)/(24*60);
@@ -73,7 +68,10 @@ if(MIN(current)>MIN(mock.sunset)){
         $('.cont-sun--moon').style.transform=`rotate(${sun+450}deg)`; 
         $('#dark').style.strokeDashoffset=`${383-dark}`;
     }
+    $('#sunrise span:first-child').innerText=mock.sunriseT[0];
+    $('#sunrise span:last-child').innerText=mock.sunriseT[1];
 }else{
+    //OK
     console.log('Is Day!'); 
     gold=((MIN(current)-MIN(mock.sunrise))*383)/(MIN(mock.sunset)-MIN(mock.sunrise));
     $('#gold').style.strokeDashoffset=`-${gold}`;
