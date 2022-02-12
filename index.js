@@ -118,7 +118,7 @@ const mock = {
   sunriseT: ["6", "35"],
   sunsetT: ["19", "40"],
 };
-const current = [1, 35];
+const current = [];
 const MIN = (time) => {
   return time[0] * 60 + Number(time[1]);
 };
@@ -148,32 +148,35 @@ async function useData(data) {
     ((Math.round(temp) + 10) * 180) / 50 + 270
   }deg);`;
 
-
-
   // FOR SVG
-  function times(dt){
-      var time=[];
-      var objDate=new Date(dt*1000);
-      time.push(objDate.getHours());
-      time.push(objDate.getMinutes())
-      return time;
+  function times(dt) {
+    var time = [];
+    var objDate = new Date(dt * 1000);
+    time.push(objDate.getHours());
+    time.push(objDate.getMinutes());
+    return time;
   }
   $("#sunrise span:first-child").innerText = times(data.today.sunrise)[0];
   $("#sunrise span:last-child").innerText = times(data.today.sunrise)[1];
   $("#sunset span:first-child").innerText = times(data.today.sunset)[0];
   $("#sunset span:last-child").innerText = times(data.today.sunset)[1];
-}
 
-var gold;
-var sun;
-var dark;
-var distance = MIN([23, 59]) - MIN(mock.sunset) + MIN(mock.sunriseT);
+  var gold;
+  var sun;
+  var dark;
+  var distance =
+    MIN([23, 59]) -
+    MIN(times(data.today.sunset)) +
+    MIN(times(data.tomorrow.sunrise));
 
+    current.push(now.getHours());
+    current.push(now.getMinutes());
+    console.log(current)
 if (MIN(current) >= 0 && MIN(current) <= MIN(mock.sunriseT)) {
   DayBreakFlag = true;
 }
 
-if (MIN(current) > MIN(mock.sunset) && DayBreakFlag == false) {
+if (MIN(current) > MIN(times(data.today.sunset)) && DayBreakFlag == false) {
   //OK
   console.log("Is Night!");
   //COMPLETE DAY
@@ -222,11 +225,12 @@ if (MIN(current) > MIN(mock.sunset) && DayBreakFlag == false) {
   //OK
   console.log("Is Day!");
   gold =
-    ((MIN(current) - MIN(mock.sunrise)) * 383) /
-    (MIN(mock.sunset) - MIN(mock.sunrise));
+    ((MIN(current) - MIN(times(data.today.sunrise))) * 383) /
+    (MIN(times(data.today.sunset)) - MIN(times(data.today.sunrise)));
   $("#gold").style.strokeDashoffset = `-${gold}`;
   sun =
-    ((MIN(current) - MIN(mock.sunrise)) * 180) /
-    (MIN(mock.sunset) - MIN(mock.sunrise));
+    ((MIN(current) - MIN(times(data.today.sunrise))) * 180) /
+    (MIN(times(data.today.sunset)) - MIN(times(data.today.sunrise)));
   $(".cont-sun--moon").style.transform = `rotate(${sun + 270}deg)`;
+}
 }
