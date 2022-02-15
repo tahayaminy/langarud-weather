@@ -12,6 +12,5 @@
         if(isset($_POST['time'])){
             echo 'time is not exist!';
         }
-    }
-    
+    }    
 ?>

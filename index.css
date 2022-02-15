@@ -18,7 +18,7 @@ body{
     transform: translate(-50%,-10px) rotateZ(270deg);
     border-radius: 50% 50% 2px 2px;
     transform-origin: bottom;
-    transition: 1s ease-out;
+    transition: 2s ease-out;
 }
 .current-temp,.temp-levels{
     text-align: center;

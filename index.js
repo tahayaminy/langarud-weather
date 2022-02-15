@@ -109,15 +109,6 @@ if (navigator.cookieEnabled) {
 const $ = (el) => {
   return document.querySelector(el);
 };
-const mock = {
-  upTemp: 20,
-  downTemp: 0,
-  currentTemp: 11,
-  sunset: ["19", "41"],
-  sunrise: ["07", "41"],
-  sunriseT: ["6", "35"],
-  sunsetT: ["19", "40"],
-};
 const current = [];
 const MIN = (time) => {
   return time[0] * 60 + Number(time[1]);
@@ -169,68 +160,106 @@ async function useData(data) {
     MIN(times(data.today.sunset)) +
     MIN(times(data.tomorrow.sunrise));
 
-    current.push(now.getHours());
-    current.push(now.getMinutes());
-    console.log(current)
-if (MIN(current) >= 0 && MIN(current) <= MIN(mock.sunriseT)) {
-  DayBreakFlag = true;
-}
+  current.push(now.getHours());
+  current.push(now.getMinutes());
+  console.log(current);
 
-if (MIN(current) > MIN(times(data.today.sunset)) && DayBreakFlag == false) {
-  //OK
-  console.log("Is Night!");
-  //COMPLETE DAY
-  $("#gold").style.strokeDashoffset = "-383";
-  $(".cont-sun--moon").style.transform = "rotate(450deg)";
-
-  sunMoon = ((MIN(current) - MIN(times(data.today.sunset))) * 180) / (distance + 1);
-  setTimeout(Night, 2000);
-
-  function Night() {
-    $("#dark").style = "opacity:1;";
-    $("#dark-pluk").style = "display:block;";
-    $(".bi-moon-stars-fill").style = "display:block;";
-    $(".bi-sun-fill").style = "display:none;";
-    dark = ((MIN(current) - MIN(times(data.today.sunset))) * 383) / (distance + 1);
-    $(".cont-sun--moon").style.transform = `rotate(${sunMoon + 450}deg)`;
-    $("#dark").style.strokeDashoffset = `${383 - dark}`;
+  if (MIN(current) >= 0 && MIN(current) <= MIN(times(data.today.sunrise))) {
+    DayBreakFlag = true;
   }
+  if (MIN(current) > MIN(times(data.today.sunset)) && DayBreakFlag == false) {
+    //OK
+    console.log("Is Night!");
+    //COMPLETE DAY
+    $("#gold").style.strokeDashoffset = "-383";
+    $(".cont-sun--moon").style.transform = "rotate(450deg)";
 
-  $("#sunrise span:first-child").innerText = times(data.tomorrow.sunrise)[0];
-  $("#sunrise span:last-child").innerText = times(data.tomorrow.sunrise)[1];
-} else if (DayBreakFlag) {
-  //OK
-  console.log("Day Break!");
-  DayBreak(current);
+    sunMoon =
+      ((MIN(current) - MIN(times(data.today.sunset))) * 180) / (distance + 1);
+    setTimeout(Night, 2000);
 
-  //COMPELETE DAY
-  $("#gold").style.strokeDashoffset = "-383";
-  $(".cont-sun--moon").style.transform = "rotate(450deg)";
+    function Night() {
+      $("#dark").style = "opacity:1;";
+      $("#dark-pluk").style = "display:block;";
+      $(".bi-moon-stars-fill").style = "display:block;";
+      $(".bi-sun-fill").style = "display:none;";
+      dark =
+        ((MIN(current) - MIN(times(data.today.sunset))) * 383) / (distance + 1);
+      $(".cont-sun--moon").style.transform = `rotate(${sunMoon + 450}deg)`;
+      $("#dark").style.strokeDashoffset = `${383 - dark}`;
+    }
 
-  sunMoon = ((MIN(daybreak) - MIN(mock.sunset)) * 180) / (distance + 1);
-  setTimeout(Sun, 2000);
-  function Sun() {
-    $("#dark").style = "opacity:1;";
-    $("#dark-pluk").style = "display:block;";
-    $(".bi-moon-stars-fill").style = "display:block;";
-    $(".bi-sun-fill").style = "display:none;";
+    $("#sunrise span:first-child").innerText = times(data.tomorrow.sunrise)[0];
+    $("#sunrise span:last-child").innerText = times(data.tomorrow.sunrise)[1];
+  } else if (DayBreakFlag) {
+    //OK
+    console.log("Day Break!");
+    DayBreak(current);
 
-    dark = ((MIN(daybreak) - MIN(mock.sunset)) * 383) / (distance + 1);
-    $(".cont-sun--moon").style.transform = `rotate(${sunMoon + 450}deg)`;
-    $("#dark").style.strokeDashoffset = `${383 - dark}`;
+    //COMPELETE DAY
+    $("#gold").style.strokeDashoffset = "-383";
+    $(".cont-sun--moon").style.transform = "rotate(450deg)";
+    //prevsunset
+    let httpcheck=new XMLHttpRequest();
+    httpcheck.onload=()=>{
+      if (httpcheck.responseText) {
+        console.log("yes");
+        dayBreakfunc(httpcheck.responseText);
+      } else {
+        console.log("no");
+        let http=new XMLHttpRequest();
+        fetch(
+          `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=37.1955948&lon=50.1529566&units=metric&dt=${
+            (data.today.dt * 1000 - 24 * 60 * 60 * 1000) / 1000
+          }&appid=81a57d03343af64fed7d77b4fdcb7340`
+        )
+          .then((get) => get.json())
+          .then((prev) =>{
+            http.open("POST", "./prevcookie.php");
+            http.setRequestHeader(
+              "Content-type",
+              "application/x-www-form-urlencoded"
+            );
+            http.send(
+              `prevsunset=${prev.current.sunset}` 
+            );
+            dayBreakfunc(prev.current.sunset);
+          })
+      }
+    }
+        function dayBreakfunc(prevsunset){
+          console.log(prevsunset);
+        sunMoon =
+        ((MIN(daybreak) - MIN(times(prevsunset))) * 180) / (distance + 1);
+      setTimeout(Sun, 2000);
+      function Sun() {
+        $("#dark").style = "opacity:1;";
+        $("#dark-pluk").style = "display:block;";
+        $(".bi-moon-stars-fill").style = "display:block;";
+        $(".bi-sun-fill").style = "display:none;";
+        console.log("run");
+        dark =
+          ((MIN(daybreak) - MIN(times(prevsunset))) * 383) /
+          (distance + 1);
+        $(".cont-sun--moon").style.transform = `rotate(${sunMoon +450 }deg)`;
+        $("#dark").style.strokeDashoffset = `${383 - dark}`;
+      }
+        }
+      httpcheck.open("POST", "./prevcookie.php");
+      httpcheck.send();
+    
+    $("#sunrise span:first-child").innerText = times(data.today.sunrise)[0];
+    $("#sunrise span:last-child").innerText = times(data.today.sunrise)[1];
+  } else {
+    //OK
+    console.log("Is Day!");
+    gold =
+      ((MIN(current) - MIN(times(data.today.sunrise))) * 383) /
+      (MIN(times(data.today.sunset)) - MIN(times(data.today.sunrise)));
+    $("#gold").style.strokeDashoffset = `-${gold}`;
+    sun =
+      ((MIN(current) - MIN(times(data.today.sunrise))) * 180) /
+      (MIN(times(data.today.sunset)) - MIN(times(data.today.sunrise)));
+    $(".cont-sun--moon").style.transform = `rotate(${sun + 270}deg)`;
   }
-  $("#sunrise span:first-child").innerText = mock.sunriseT[0];
-  $("#sunrise span:last-child").innerText = mock.sunriseT[1];
-} else {
-  //OK
-  console.log("Is Day!");
-  gold =
-    ((MIN(current) - MIN(times(data.today.sunrise))) * 383) /
-    (MIN(times(data.today.sunset)) - MIN(times(data.today.sunrise)));
-  $("#gold").style.strokeDashoffset = `-${gold}`;
-  sun =
-    ((MIN(current) - MIN(times(data.today.sunrise))) * 180) /
-    (MIN(times(data.today.sunset)) - MIN(times(data.today.sunrise)));
-  $(".cont-sun--moon").style.transform = `rotate(${sun + 270}deg)`;
-}
 }
