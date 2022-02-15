@@ -1,1 +1,1 @@
-readme
+note: bootstrap icon is as dependency
