@@ -1,4 +1,3 @@
-//fetch('https://api.openweathermap.org/data/2.5/weather?q=Langarud&units=metric&appid=81a57d03343af64fed7d77b4fdcb7340').then(get=>get.json()).then(response=>{console.log('current: ');console.log(response)});
 function unixHour(num) {
   var sec = new Date(num * 1000);
   return sec.getHours();
@@ -14,7 +13,7 @@ if (navigator.cookieEnabled) {
     } else {
       console.log("%c cookie is NOT set!", "color:red");
       fetch(
-        "https://api.openweathermap.org/data/2.5/onecall?lat=37.1955948&lon=50.1529566&exclude=alerts,minutely,current&units=metric&appid=81a57d03343af64fed7d77b4fdcb7340"
+        "https://api.openweathermap.org/data/2.5/onecall?lat=37.1955948&lon=50.1529566&exclude=alerts,minutely,current&units=metric&appid=IsSecret"
       )
         .then((get) => get.json())
         .then((obj) => {
@@ -211,7 +210,7 @@ async function useData(data) {
         fetch(
           `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=37.1955948&lon=50.1529566&units=metric&dt=${
             (data.today.dt * 1000 - 24 * 60 * 60 * 1000) / 1000
-          }&appid=81a57d03343af64fed7d77b4fdcb7340`
+          }&appid=IsSecret`
         )
           .then((get) => get.json())
           .then((prev) =>{
